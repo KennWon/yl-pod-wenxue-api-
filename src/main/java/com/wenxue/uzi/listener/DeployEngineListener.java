@@ -15,7 +15,6 @@ import java.util.ServiceLoader;
  * @Author:yl
  */
 @Component
-@Slf4j
 public class DeployEngineListener {
 
 
