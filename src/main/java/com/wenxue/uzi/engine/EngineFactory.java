@@ -1,6 +1,7 @@
 package com.wenxue.uzi.engine;
 
 import com.wenxue.uzi.constant.EngineServiceCons;
+import com.wenxue.uzi.router.RouterUziHandlerFactory;
 import com.yl.vertx.server.engine.CollectEngine;
 import com.yl.vertx.server.engine.EngineInitializer;
 import com.yl.vertx.server.enums.EngineType;
@@ -85,7 +86,7 @@ public class EngineFactory implements CollectEngine {
         VertxSingleton.init(vertx);
         //启动引擎
         try {
-            Router router = new RouterHandlerFactory(webApiPackages, EngineServiceCons.CONTEXT_PATH).createRouter();
+            Router router = new RouterUziHandlerFactory(webApiPackages, EngineServiceCons.CONTEXT_PATH).createRouter();
             DeployVertxServer.startDeploy(router, httpServerPort);
             log.info("Vert.x engine started on port: {}", httpServerPort);
         } catch (IOException e) {

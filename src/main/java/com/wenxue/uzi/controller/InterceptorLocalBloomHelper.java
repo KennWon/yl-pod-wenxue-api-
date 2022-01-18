@@ -5,6 +5,7 @@ import io.vertx.core.MultiMap;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.ext.web.RoutingContext;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,9 +46,12 @@ import static java.net.HttpURLConnection.HTTP_OK;
 @Slf4j
 public class InterceptorLocalBloomHelper {
 
+    @Value("${yyt.carrier.id:41}")
+    private Integer carrierId;
+
     public static void validateSingle(RoutingContext ctx) {
         HttpServerRequest request = ctx.request();
-        log.info("入参:{}", JSON.toJSONString(request.query()));
+        log.info("入参:{},{}", JSON.toJSONString(request.query()));
         MultiMap params = request.params();
         List<Map.Entry<String, String>> entries = params.entries();
         for (Map.Entry<String, String> entry : entries) {
