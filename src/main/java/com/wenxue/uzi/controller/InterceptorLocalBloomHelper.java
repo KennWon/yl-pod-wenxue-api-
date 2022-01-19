@@ -1,6 +1,7 @@
 package com.wenxue.uzi.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.wenxue.uzi.utils.RequestParamsUtil;
 import io.vertx.core.MultiMap;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.ext.web.RoutingContext;
@@ -50,15 +51,8 @@ public class InterceptorLocalBloomHelper {
     private Integer carrierId;
 
     public static void validateSingle(RoutingContext ctx) {
-        HttpServerRequest request = ctx.request();
-        log.info("入参:{},{}", JSON.toJSONString(request.query()));
-        MultiMap params = request.params();
-        List<Map.Entry<String, String>> entries = params.entries();
-        for (Map.Entry<String, String> entry : entries) {
-            System.out.println(entry.getKey());
-            System.out.println(entry.getValue());
-        }
-        String waybillNo = request.getParam("waybillNo");
+        Map<String, String> bizContent = RequestParamsUtil.getBizContent(ctx);
+        String waybillNo = bizContent.get("waybillNo");
         List<String> filter = new ArrayList<String>(){{add("123");}};
         byte result;
         if (filter != null) {
