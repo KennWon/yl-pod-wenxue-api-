@@ -5,7 +5,6 @@ import com.wenxue.uzi.router.RouterUziHandlerFactory;
 import com.yl.vertx.server.engine.CollectEngine;
 import com.yl.vertx.server.engine.EngineInitializer;
 import com.yl.vertx.server.enums.EngineType;
-import com.yl.vertx.server.handlerfactory.RouterHandlerFactory;
 import com.yl.vertx.server.vertx.DeployVertxServer;
 import com.yl.vertx.server.vertx.VertxSingleton;
 import io.micrometer.core.instrument.Clock;
