@@ -122,6 +122,12 @@
 			<artifactId>micrometer-registry-prometheus</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-jmx</artifactId>
+			<version>1.0.4</version>
+		</dependency>
+
 		<!--netty pom-->
 		<dependency>
 			<groupId>io.netty</groupId>
@@ -133,7 +139,12 @@
             <groupId>com.ctrip.framework.apollo</groupId>
             <artifactId>apollo-client</artifactId>
             <version>1.4.0</version>
-            <scope>compile</scope>
+        </dependency>
+
+
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
         </dependency>
 
     </dependencies>

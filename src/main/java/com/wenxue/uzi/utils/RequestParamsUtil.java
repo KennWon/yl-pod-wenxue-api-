@@ -3,19 +3,19 @@ package com.wenxue.uzi.utils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import io.vertx.codegen.annotations.Nullable;
+import com.wenxue.uzi.constant.origin.ResultCodeEnum;
+import com.wenxue.uzi.exception.CommonException;
 import io.vertx.core.MultiMap;
 import io.vertx.core.http.HttpServerRequest;
-import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.boot.autoconfigure.ldap.embedded.EmbeddedLdapProperties;
 
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Field;
-import java.util.*;
-import java.util.stream.Collectors;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author yl
@@ -34,5 +34,19 @@ public class RequestParamsUtil {
             biz = JSON.parseObject(body,new TypeReference<Map<String, String>>(){});
         log.info("[API SERVICE].requestId:{},url:{},param:{}", Long.toHexString(System.currentTimeMillis()), request.path(), JSON.toJSONString(biz));
         return biz;
+    }
+
+    public static <T> T getBizContent(RoutingContext rc,Class<T> clazz){
+        Map<String, String> bizContent = getBizContent(rc);
+        T value = JSON.parseObject(bizContent.toString(), clazz);
+        Set<ConstraintViolation<T>> constraintValidations = Validation.buildDefaultValidatorFactory().getValidator().validate(value);
+        if (CollectionUtils.isNotEmpty(constraintValidations)) {
+            for (ConstraintViolation<T> constraintValidation : constraintValidations) {
+                String message = constraintValidation.getMessage();
+                if (StringUtils.isNotEmpty(message))
+                    throw new CommonException(ResultCodeEnum.PARAMS_IS_INVALID.getCode(),message);
+            }
+        }
+        return value;
     }
 }

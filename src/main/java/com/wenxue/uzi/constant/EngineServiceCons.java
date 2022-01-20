@@ -19,7 +19,7 @@ public class EngineServiceCons {
     @Value("${httpServerPort:9999}")
     public void setHttpServerPort(Integer httpServerPort) { HTTP_SERVER_PORT = httpServerPort; }
 
-    @Value("${webPackages:com.wenxue.uzi.controller}")
+    @Value("${webPackages:com.wenxue.uzi.service}")
     public void setWebPackages(String webPackages) { WEB_PACKAGES = webPackages; }
 
     @Value("${workerPoolSize:20}")
