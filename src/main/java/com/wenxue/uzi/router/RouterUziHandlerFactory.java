@@ -42,16 +42,7 @@ public class RouterUziHandlerFactory {
             ctx.response().headers().add(HttpHeaders.ACCESS_CONTROL_MAX_AGE, "1728000");
             ctx.next();
         });
-        Set<HttpMethod> method = new HashSet<HttpMethod>() {
-            {
-                this.add(HttpMethod.GET);
-                this.add(HttpMethod.POST);
-                this.add(HttpMethod.OPTIONS);
-                this.add(HttpMethod.PUT);
-                this.add(HttpMethod.DELETE);
-                this.add(HttpMethod.HEAD);
-            }
-        };
+        Set<HttpMethod> method = Arrays.asList(HttpMethod.values()).stream().collect(Collectors.toSet());
         router.route().handler(CorsHandler.create("*").allowedMethods(method));
         router.route().handler(BodyHandler.create());
         try {
