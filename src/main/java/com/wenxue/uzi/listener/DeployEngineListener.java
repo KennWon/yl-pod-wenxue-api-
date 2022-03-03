@@ -25,7 +25,7 @@ public class DeployEngineListener {
             //初始化引擎: 使用SPI机制，按需定制高并发引擎(NETTY/VERTX/其他等)
             ServiceLoader<CollectEngine> engineLoader = ServiceLoader.load(CollectEngine.class);
             for (CollectEngine engine : engineLoader ) {
-                engine.useEngine(EngineType.VERTX).init(EngineServiceCons.WEB_PACKAGES, EngineServiceCons.HTTP_SERVER_PORT, EngineServiceCons.WORKER_POOL_SIZE, EngineServiceCons.CONNECT_TIME_OUT);
+                engine.useEngine(EngineType.NETTY).init(EngineServiceCons.WEB_PACKAGES, EngineServiceCons.HTTP_SERVER_PORT, EngineServiceCons.WORKER_POOL_SIZE, EngineServiceCons.CONNECT_TIME_OUT);
                 break;
             }
         }

@@ -1,5 +1,6 @@
 package com.wenxue.uzi.router;
 
+import com.wenxue.uzi.exception.GlobExceptionHandler;
 import com.wenxue.uzi.router.annotation.RequestMapping;
 import com.yl.vertx.server.utils.ReflectionUtil;
 import com.yl.vertx.server.vertx.RouterSingleton;
@@ -37,7 +38,7 @@ public class RouterUziHandlerFactory {
         router.route().handler((ctx) -> {
             ctx.response().headers().add(HttpHeaders.CONTENT_TYPE, "application/json; charset=utf-8");
             ctx.response().headers().add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
-            ctx.response().headers().add(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "POST, GET, OPTIONS, PUT, DELETE, HEAD");
+            ctx.response().headers().add(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, Arrays.asList(HttpMethod.values()).stream().map(String::valueOf).collect(Collectors.joining(",")));
             ctx.response().headers().add(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "X-PINGOTHER, Origin,Content-Type, Accept, X-Requested-With, Dev, Authorization, Version, Token");
             ctx.response().headers().add(HttpHeaders.ACCESS_CONTROL_MAX_AGE, "1728000");
             ctx.next();
@@ -45,6 +46,9 @@ public class RouterUziHandlerFactory {
         Set<HttpMethod> method = Arrays.asList(HttpMethod.values()).stream().collect(Collectors.toSet());
         router.route().handler(CorsHandler.create("*").allowedMethods(method));
         router.route().handler(BodyHandler.create());
+        router.route().handler(GlobExceptionHandler.of());
+        router.route().last().failureHandler(GlobExceptionHandler.of());
+
         try {
             Set<Class<?>> handlers = reflections.getTypesAnnotatedWith(RequestMapping.class);
             List<Class<?>> sortedHandlers = handlers.stream().sorted(getClassComparator()).collect(Collectors.toList());
