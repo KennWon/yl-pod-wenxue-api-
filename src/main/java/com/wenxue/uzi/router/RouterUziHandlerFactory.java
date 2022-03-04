@@ -46,7 +46,6 @@ public class RouterUziHandlerFactory {
         Set<HttpMethod> method = Arrays.asList(HttpMethod.values()).stream().collect(Collectors.toSet());
         router.route().handler(CorsHandler.create("*").allowedMethods(method));
         router.route().handler(BodyHandler.create());
-        router.route().handler(GlobExceptionHandler.of());
         router.route().last().failureHandler(GlobExceptionHandler.of());
 
         try {
