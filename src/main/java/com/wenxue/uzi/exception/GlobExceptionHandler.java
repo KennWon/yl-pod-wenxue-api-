@@ -26,7 +26,7 @@ public class GlobExceptionHandler implements Handler<RoutingContext> {
         if (throwable instanceof JSONException) {
             JSONException e = (JSONException) throwable;
             log.error("[API GLOB EXCEPTION].title:{},message:{},url:{},param:{}", "JSONException", e.getMessage(), ctx.request().path(), ServerRequestUtil.getBizContent(ctx), e);
-            ServerRequestUtil.response(ctx, ResponseResult.genErrorResult(ResultCodeEnum.PARAMS_IS_INVALID));
+            ServerRequestUtil.response(ctx, ResponseResult.genErrorResult(ResultCodeEnum.JSON_PARSING_ERROR));
             return;
         }else if (throwable instanceof ConstraintViolationException) {
             ConstraintViolationException e = (ConstraintViolationException) throwable;

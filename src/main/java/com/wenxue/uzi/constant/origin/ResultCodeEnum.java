@@ -19,7 +19,7 @@ public enum ResultCodeEnum {
     PARAMS_NOT_COMPLETE(601, "参数不全"),
     PARAMS_TYPE_ERROR(602, "参数类型匹配错误"),
     PARAMS_IS_INVALID(603, "参数无效"),
-    JSON_PARSING_ERROR(604, "json解析错误"),
+    JSON_PARSING_ERROR(604, "數據解析错误"),
 
     /**
      * 数据错误
