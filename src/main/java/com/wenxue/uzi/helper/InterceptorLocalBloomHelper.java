@@ -1,6 +1,6 @@
 package com.wenxue.uzi.helper;
 
-import com.wenxue.uzi.utils.ServerRequestUtil;
+import com.wenxue.uzi.utils.HttpServerRequestUtil;
 import io.vertx.ext.web.RoutingContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,8 +45,8 @@ public class InterceptorLocalBloomHelper {
     private Integer carrierId;
 
     public static void validateSingle(RoutingContext ctx) {
-            Map<String, String> bizContent = ServerRequestUtil.getBizContent(ctx);
-            Path path = ServerRequestUtil.getBizContent(ctx, Path.class);
+            Map<String, String> bizContent = HttpServerRequestUtil.getBizContent(ctx);
+            Path path = HttpServerRequestUtil.getBizContent(ctx, Path.class);
             String waybillNo = bizContent.get("waybillNo");
             List<String> filter = new ArrayList<String>(){{add("123");}};
             byte result;
@@ -65,7 +65,7 @@ public class InterceptorLocalBloomHelper {
             }
             //极端的高并发情况下,数据结构的正确使用能为我们省下非常可观的内存申请空间
             //使用byte只占用1个字节的申请空间，而盲目使用int则占用4个字节的申请空间
-            ServerRequestUtil.response(ctx,result);
+        HttpServerRequestUtil.response(ctx,result);
 
     }
 
