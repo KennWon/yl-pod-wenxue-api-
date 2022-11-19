@@ -147,6 +147,12 @@
             <artifactId>validation-api</artifactId>
         </dependency>
 
+		<dependency>
+			<groupId>ma.glasnost.orika</groupId>
+			<artifactId>orika-core</artifactId>
+			<version>1.5.4</version>
+		</dependency>
+
     </dependencies>
 
 	<build>
@@ -180,51 +186,7 @@
 			</plugin>
 		</plugins>
 	</build>
-	<profiles>
-		<profile>
-			<id>snapshots</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<repositories>
-				<repository>
-					<id>snapshots</id>
-					<name>Snapshots</name>
-					<url>http://192.168.1.211:8082/nexus/content/repositories/snapshots</url>
-				</repository>
-			</repositories>
-		</profile>
-		<profile>
-			<id>alphas</id>
-			<repositories>
-				<repository>
-					<id>Alpha</id>
-					<name>Alpha</name>
-					<url>http://192.168.1.211:8082/nexus/content/repositories/Alpha</url>
-				</repository>
-			</repositories>
-		</profile>
-		<profile>
-			<id>betas</id>
-			<repositories>
-				<repository>
-					<id>Beta</id>
-					<name>Beta</name>
-					<url>http://192.168.1.211:8082/nexus/content/repositories/Beta</url>
-				</repository>
-			</repositories>
-		</profile>
-		<profile>
-			<id>releases</id>
-			<repositories>
-				<repository>
-					<id>releases</id>
-					<name>Releases</name>
-					<url>http://192.168.1.211:8082/nexus/content/repositories/releases</url>
-				</repository>
-			</repositories>
-		</profile>
-	</profiles>
+
 </project>
 
 
